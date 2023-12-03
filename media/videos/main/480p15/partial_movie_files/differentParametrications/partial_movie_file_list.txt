@@ -1,0 +1,4 @@
+# This file is used internally by FFMPEG.
+file 'file:C:/Users/arvni/Documents/manim/media/videos/main/480p15/partial_movie_files/differentParametrications/1185818338_1154527477_223132457.mp4'
+file 'file:C:/Users/arvni/Documents/manim/media/videos/main/480p15/partial_movie_files/differentParametrications/624642324_3890345977_2000183633.mp4'
+file 'file:C:/Users/arvni/Documents/manim/media/videos/main/480p15/partial_movie_files/differentParametrications/624642324_3373414378_2286286449.mp4'
