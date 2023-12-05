@@ -1,4 +1,5 @@
 from manim import *
+import time
 
 class differentParametrications(Scene):
     def construct(self):
@@ -19,8 +20,6 @@ class differentParametrications(Scene):
         text_5_2 = MathTex(r"y &= t^2+6t+9", font_size=96)
         
 
-
-
         self.play(Write(text_1))
         self.wait(2)
         self.play(Transform(text_1 ,VGroup(text_2_1, text_2_2).arrange(DOWN, aligned_edge=LEFT)))
@@ -30,3 +29,24 @@ class differentParametrications(Scene):
         self.play(Transform(text_1 ,VGroup(text_4_1, text_4_2).arrange(DOWN, aligned_edge=LEFT)))
         self.wait(2)
         self.play(Transform(text_1 ,VGroup(text_5_1, text_5_2).arrange(DOWN, aligned_edge=LEFT)))
+
+class ExampleFunctionGraph(Scene):
+    def construct(self):
+        ax = Axes(
+            x_range=[-5, 5, 1],
+            y_range=[-5, 5, 1],
+            #axis_config={"font_size": 24},
+        ).add_coordinates()
+
+        t = 1;
+
+        curve = ax.plot(lambda x: x**2)
+
+        dot = Dot(ax.c2p(0, 0))
+
+        self.add(ax, curve, dot)
+        self.wait(3)
+
+        
+        self.play(dot.animate.move_to(ax.c2p(t,t**2)))
+
