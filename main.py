@@ -38,15 +38,34 @@ class ExampleFunctionGraph(Scene):
             #axis_config={"font_size": 24},
         ).add_coordinates()
 
-        t = 1;
+        t = ValueTracker(0);
 
-        curve = ax.plot(lambda x: x**2)
+        curve = ax.plot(lambda x: x ** 2)
 
         dot = Dot(ax.c2p(0, 0))
+        dot2 = Dot(ax.c2p(0, 0))
 
-        self.add(ax, curve, dot)
-        self.wait(3)
-
+        def update_dot(dot):
+            x_val = t.get_value()  
+            new_point = ax.input_to_graph_point(x_val, curve)
+            dot.move_to(new_point)
         
-        self.play(dot.animate.move_to(ax.c2p(t,t**2)))
+        def update_dot2(dot):
+            x_val = t.get_value() * 2  
+            new_point = ax.input_to_graph_point(x_val, curve)
+            dot.move_to(new_point)
+
+        dot.add_updater(update_dot)
+        dot2.add_updater(update_dot2)
+
+        t_label = Text("t = ").scale(0.8).to_corner(UL)
+        t_value = DecimalNumber(0).scale(0.8).next_to(t_label, RIGHT)
+
+        t_value.add_updater(lambda v: v.set_value(t.get_value()))
+
+        self.add(ax, curve, dot, dot2, t_label, t_value)
+        self.play(t.animate.set_value(2), rate_func = linear, run_time=10)
+
+
+
 
