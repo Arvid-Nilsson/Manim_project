@@ -150,9 +150,10 @@ class arclength(Scene):
         text1 = MathTex(r"\int")
         text2 = MathTex(r"\int_{a}^{b}")
         text3 = MathTex(r"\int_{a}^{b} \sqrt{\left(\frac{dy}{dt}\right)^2 \cdot \left(\frac{dx}{dt}\right)^2}")
-        text4 = MathTex(r"\int_{a}^{b} \sqrt{\left(\frac{dy}{dt}\right)^2 \cdot \left(\frac{dx}{dt}\right)^2} =").to_corner(UR).scale(0.5)
-        text6 = DecimalNumber(0).scale(0.5).next_to(text4, RIGHT)
-        text6.add_updater(lambda v: v.set_value(quad(self.integrand, 0, t.get_value())[0]))       
+        text4 = MathTex(r"\int_{a}^{b} \sqrt{\left(\frac{dy}{dt}\right)^2 \cdot \left(\frac{dx}{dt}\right)^2}").to_corner(UR).scale(0.5)
+        text5 = MathTex(r"\int_{a}^{b} \sqrt{\left(\frac{dy}{dt}\right)^2 \cdot \left(\frac{dx}{dt}\right)^2} = \sqrt{\sin^2 \left(t\right) \cdot \cos^2 \left(t\right) = ").to_corner(UR).scale(0.3)
+        text6 = DecimalNumber(0).scale(0.5).next_to(text5, RIGHT)
+        text6.add_updater(lambda v: v.set_value(quad(self.integrand, 0, t.get_value())[0]).next_to(text5, RIGHT))       
         
 
 
@@ -168,8 +169,9 @@ class arclength(Scene):
         self.wait(3)
         self.add(curve)
         self.wait(3)
-        self.play(Create(dot), Transform(text, text4), FadeIn(text6))
+        self.play(Create(dot), Transform(text, text4))
         self.wait(3)
+        self.play(Transform(text, text5.shift(RIGHT * 3)), FadeIn(text6))
         self.play(t.animate.set_value(2 * PI), rate_func=linear, run_time=10)
         self.wait(3)
 
